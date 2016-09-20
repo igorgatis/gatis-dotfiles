@@ -105,22 +105,22 @@ export DEPOT="$HOME/depot"
 function lsc() {
   $HOME/bin/tmux-complete.py
 }
+
 if [ -z "$TMUX" ]; then
   # Not in TMUX session, adding TMUX attach commands.
   function rsc() {
     local client="$1"
-    [ -z "$client" ] && echo "Usage: $FUNCNAME <foo>" && return
-    pushd "$DEPOT/$client" > /dev/null || return
+    if [ -z "$client" ]; then
+      tmux list-session | cut -f1 -d:
+      return
+    fi
     if [ ! $(tmux list-sessions | grep --quiet "^$client:") ]; then
       tmux -q new-session -d -s "$client" > /dev/null
     fi
     local sessionid="$client.$$"
     tmux -q new-session -t "$client" -s "$sessionid" \;\
         set-option destroy-unattached \;\
-        set-option default-path "$DEPOT/$client" \;\
         attach-session -t "$sessionid" > /dev/null
-    popd > /dev/null
   }
   complete -o nospace -C "$HOME/bin/tmux-complete.py" rsc
 fi
-
