@@ -50,18 +50,17 @@ function __git_ps1_branch() {
 }
 
 function __ps1_setup() {
-  local time_p='\[\e[1;30m\]\t'
   local host_p='\[\e[1;32m\]\h'
   local path_p='\[\e[1;34m\]\w'
-  local end_p='\[\e[0m\]\$ '
+  local end_p='\[\e[0m\]\$'
   case $OSTYPE in
     *win*|*msys*)
       local branch_p='\[\e[1;33m\]$(__git_ps1_cygwin_branch)'
-      export PS1="$time_p $host_p $path_p$branch_p$end_p"
+      export PS1="$host_p $path_p$branch_p$end_p "
       ;;
     *)
       local branch_p='\[\e[1;33m\]$(__git_ps1_branch)'
-      export PS1="$time_p $host_p:$path_p$branch_p$end_p"
+      export PS1="$host_p:$path_p$branch_p$end_p "
       ;;
   esac
 }
