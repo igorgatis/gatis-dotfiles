@@ -17,7 +17,7 @@ set tabstop=2
 set shiftwidth=2
 set showtabline=2
 set autoindent
-set smartindent
+"set smartindent
 set cindent
 set cinoptions=l1,g0.5s,h0.5s,i2s,+2s,(0,W2s
 " Helpful stuff
