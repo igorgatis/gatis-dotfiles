@@ -67,6 +67,9 @@ function __ps1_setup() {
 
 __ps1_setup
 
+# sets terminal title to hostname
+echo -ne "\033]0;${HOSTNAME}\007"
+
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
