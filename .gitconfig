@@ -12,7 +12,7 @@
   tool = vimdiff3
 
 [mergetool]
-	keepBackup = false
+  keepBackup = false
 
 [alias]
   vimdiff = diff --tool=vimdiff
@@ -30,4 +30,4 @@
   co = checkout
 
 [credential]
-	helper = cache --timeout=3600
+  helper = cache --timeout=3600
