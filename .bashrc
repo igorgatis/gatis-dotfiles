@@ -74,25 +74,22 @@ echo -ne "\033]0;${HOSTNAME}\007"
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
 
 # some more ls aliases
+alias ..='cd ..'
 alias ll='ls -alFh'
 alias la='ls -A'
 alias l='ls -CF'
-alias ..='cd ..'
-alias vi='vim -X'
-alias vim='vim -X'
-alias vimdiff='vimdiff -X'
 alias less='less -S'
-alias rmorig='find . -name *.orig -delete'
-alias rmpyc='find . -name *.pyc -delete'
+if [ -x /usr/bin/vim ]; then
+    alias vi='vim -X'
+    alias vim='vim -X'
+    alias vimdiff='vimdiff -X'
+fi
 alias wip="git commit -a -m'WIP.'"
 
 # Local settings.
@@ -100,29 +97,3 @@ alias wip="git commit -a -m'WIP.'"
 [ -d "$HOME/bin" ] && export PATH="$HOME/bin/:$PATH"
 [ -d "$HOME/bin_local" ] && export PATH="$HOME/bin_local/:$PATH"
 [ -f $HOME/.bashrc_local ] && source $HOME/.bashrc_local
-
-# TMUX stuff.
-export DEPOT="$HOME/depot"
-# It's OK to list sessions while in TMUX session.
-function lsc() {
-  $HOME/bin/tmux-complete.py
-}
-if [ -z "$TMUX" ]; then
-  # Not in TMUX session, adding TMUX attach commands.
-  function rsc() {
-    local client="$1"
-    if [ -z "$client" ]; then
-      tmux list-session | cut -f1 -d:
-      return
-    fi
-    if [ ! $(tmux list-sessions | grep --quiet "^$client:") ]; then
-      echo "Creating client '$client'"
-      tmux -q new-session -d -s "$client"
-    fi
-    local sessionid="$client_$$"
-    echo "Attaching to client '$client' through session '$sessionid'"
-    tmux -q new-session -t "$client" -s "$sessionid" \;\
-        set-option destroy-unattached \;\
-        attach-session -t "$sessionid"
-  }
-fi
