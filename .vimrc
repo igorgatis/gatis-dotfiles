@@ -5,7 +5,7 @@ filetype plugin indent on
 syntax on
 set nohidden
 
-set term=xterm
+"set term=xterm
 " Search
 set incsearch
 set ignorecase

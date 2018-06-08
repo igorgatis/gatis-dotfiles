@@ -90,6 +90,7 @@ if [ -x /usr/bin/vim ]; then
     alias vim='vim -X'
     alias vimdiff='vimdiff -X'
 fi
+alias blaze='bazel'
 alias wip="git commit -a -m'WIP.'"
 
 # Local settings.
