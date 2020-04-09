@@ -98,3 +98,6 @@ alias wip="git commit -a -m'WIP.'"
 [ -d "$HOME/bin" ] && export PATH="$HOME/bin/:$PATH"
 [ -d "$HOME/bin_local" ] && export PATH="$HOME/bin_local/:$PATH"
 [ -f $HOME/.bashrc_local ] && source $HOME/.bashrc_local
+
+# Makes sure this init script ends with error code 0.
+/bin/true
