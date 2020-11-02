@@ -59,6 +59,13 @@ function __ps1_setup() {
       export PS1="$host_p $path_p$branch_p$end_p "
       ;;
     *)
+      if [ -f /.dockerenv ]; then
+        if [ $BASHPID == 1 ]; then
+          host_p='*\[\e[1;35m\]\h'
+        else
+          host_p='\[\e[1;35m\]\h'
+        fi
+      fi
       local branch_p='\[\e[1;33m\]$(__git_ps1_branch)'
       export PS1="$host_p:$path_p$branch_p$end_p "
       ;;
@@ -90,10 +97,13 @@ if [ -x /usr/bin/vim ]; then
     alias vim='vim -X'
     alias vimdiff='vimdiff -X'
 fi
+
 alias blaze='bazel'
 alias wip="git commit -a -m'WIP.'"
 
-# Local settings.
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    . /etc/bash_completion
+fi
 
 [ -d "$HOME/bin" ] && export PATH="$HOME/bin/:$PATH"
 [ -d "$HOME/bin_local" ] && export PATH="$HOME/bin_local/:$PATH"

@@ -2,7 +2,6 @@ set nocompatible  " be iMproved.
 filetype off
 
 filetype plugin indent on
-syntax on
 set nohidden
 
 "set term=xterm
