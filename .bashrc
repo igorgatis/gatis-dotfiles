@@ -105,9 +105,11 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
+[ -f $HOME/bin/git-completion.bash ] && source $HOME/bin/git-completion.bash
+
 [ -d "$HOME/bin" ] && export PATH="$HOME/bin/:$PATH"
 [ -d "$HOME/bin_local" ] && export PATH="$HOME/bin_local/:$PATH"
 [ -f $HOME/.bashrc_local ] && source $HOME/.bashrc_local
 
 # Makes sure this init script ends with error code 0.
-/bin/true
+/usr/bin/true
