@@ -1,5 +1,6 @@
 syntax on
 set nocompatible  " be iMproved.
+colorscheme desert
 filetype off
 
 filetype plugin indent on
