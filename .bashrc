@@ -109,7 +109,8 @@ fi
 
 [ -d "$HOME/bin" ] && export PATH="$HOME/bin/:$PATH"
 [ -d "$HOME/bin_local" ] && export PATH="$HOME/bin_local/:$PATH"
-[ -f $HOME/.bashrc_local ] && source $HOME/.bashrc_local
+[ -f "$HOME/.bashrc_local" ] && source "$HOME/.bashrc_local"
+[ -d /opt/homebrew/bin ] && export PATH="/opt/homebrew/bin:$PATH"
 
 # Makes sure this init script ends with error code 0.
 /usr/bin/true
