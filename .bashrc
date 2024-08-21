@@ -31,26 +31,21 @@ bind '"\e[1;5D": backward-word'
 
 export EDITOR='vim'
 
-function __git_ps1_cygwin_branch() {
-  # On Cygwin, git is quite slow. That's why we parse HEAD manually.
-  local slashes=${PWD//[^\/]/}
-  local gitdir="$PWD"
-  for (( n=${#slashes}; n>0; --n )); do
-    if [ -f "$gitdir/.git/HEAD" ]; then
-      local ref=$(<"$gitdir/.git/HEAD")
-      echo " [${ref##*/}]"
-      return
-    fi
-    gitdir="$gitdir/.."
-  done
-}
+[ -f $HOME/bin/git-prompt.sh ] && source $HOME/bin/git-prompt.sh
 
-function __git_ps1_branch() {
-  local branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
-  if [ -n "$branch" ]; then
-    echo " [$branch]"
-  fi
-}
+#function __git_ps1_cygwin_branch() {
+#  # On Cygwin, git is quite slow. That's why we parse HEAD manually.
+#  local slashes=${PWD//[^\/]/}
+#  local gitdir="$PWD"
+#  for (( n=${#slashes}; n>0; --n )); do
+#    if [ -f "$gitdir/.git/HEAD" ]; then
+#      local ref=$(<"$gitdir/.git/HEAD")
+#      echo " [${ref##*/}]"
+#      return
+#    fi
+#    gitdir="$gitdir/.."
+#  done
+#}
 
 function __ps1_setup() {
   local host_p='\[\e[1;32m\]\h'
@@ -58,7 +53,8 @@ function __ps1_setup() {
   local end_p='\[\e[0m\]\$'
   case $OSTYPE in
     *win*|*msys*)
-      local branch_p='\[\e[1;33m\]$(__git_ps1_cygwin_branch)'
+      #local branch_p='\[\e[1;33m\]$(__git_ps1_cygwin_branch)'
+      local branch_p='\[\e[1;33m\]$(__git_ps1 " [%s]")'
       export PS1="$host_p $path_p$branch_p$end_p "
       ;;
     *)
@@ -69,7 +65,7 @@ function __ps1_setup() {
           host_p='\[\e[1;35m\]\h'
         fi
       fi
-      local branch_p='\[\e[1;33m\]$(__git_ps1_branch)'
+      local branch_p='\[\e[1;33m\]$(__git_ps1 " [%s]")'
       export PS1="$host_p:$path_p$branch_p$end_p "
       ;;
   esac
