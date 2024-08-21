@@ -15,19 +15,13 @@
   keepBackup = false
 
 [alias]
-  vimdiff = diff --tool=vimdiff
-  diff = diff --relative
-  dd = diff --relative --name-status
-  p = diff --relative --name-only
-  l = log --decorate
-  lg = log --decorate --graph
-  ls = log --decorate --graph --simplify-by-decoration
-  ld = log --no-merges --format='%h %an <%ae>%n        %s%n' -10
-  s = status -b -s
-  ca = commit
-  ci = commit
   b = branch
   co = checkout
+  dd = diff --relative --name-status
+  diff = diff --relative
+  l = log --decorate
+  p = diff --relative --name-only
+  s = status -b -s
 
 [credential]
   helper = cache --timeout=3600

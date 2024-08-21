@@ -57,6 +57,9 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 [ -f $HOME/bin/git-completion.bash ] && source $HOME/bin/git-completion.bash
+# Hack to make 'git dd' complete to branch names.
+_git_dd() { _git_diff ; }
+_git_p() { _git_diff ; }
 
 [ -d "$HOME/bin" ] && export PATH="$HOME/bin/:$PATH"
 [ -d "$HOME/bin_local" ] && export PATH="$HOME/bin_local/:$PATH"
