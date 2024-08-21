@@ -31,51 +31,6 @@ bind '"\e[1;5D": backward-word'
 
 export EDITOR='vim'
 
-[ -f $HOME/bin/git-prompt.sh ] && source $HOME/bin/git-prompt.sh
-
-#function __git_ps1_cygwin_branch() {
-#  # On Cygwin, git is quite slow. That's why we parse HEAD manually.
-#  local slashes=${PWD//[^\/]/}
-#  local gitdir="$PWD"
-#  for (( n=${#slashes}; n>0; --n )); do
-#    if [ -f "$gitdir/.git/HEAD" ]; then
-#      local ref=$(<"$gitdir/.git/HEAD")
-#      echo " [${ref##*/}]"
-#      return
-#    fi
-#    gitdir="$gitdir/.."
-#  done
-#}
-
-function __ps1_setup() {
-  local host_p='\[\e[1;32m\]\h'
-  local path_p='\[\e[1;34m\]\w'
-  local end_p='\[\e[0m\]\$'
-  case $OSTYPE in
-    *win*|*msys*)
-      #local branch_p='\[\e[1;33m\]$(__git_ps1_cygwin_branch)'
-      local branch_p='\[\e[1;33m\]$(__git_ps1 " [%s]")'
-      export PS1="$host_p $path_p$branch_p$end_p "
-      ;;
-    *)
-      if [ -f /.dockerenv ]; then
-        if [ $BASHPID == 1 ]; then
-          host_p='*\[\e[1;35m\]\h'
-        else
-          host_p='\[\e[1;35m\]\h'
-        fi
-      fi
-      local branch_p='\[\e[1;33m\]$(__git_ps1 " [%s]")'
-      export PS1="$host_p:$path_p$branch_p$end_p "
-      ;;
-  esac
-}
-
-__ps1_setup
-
-# sets terminal title to hostname
-echo -ne "\033]0;${HOSTNAME}\007"
-
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -97,9 +52,6 @@ if [ -x /usr/bin/vim ]; then
     alias vimdiff='vimdiff -X'
 fi
 
-alias blaze='bazel'
-alias wip="git commit -a -m'WIP.'"
-
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
@@ -111,5 +63,42 @@ fi
 [ -f "$HOME/.bashrc_local" ] && source "$HOME/.bashrc_local"
 [ -d /opt/homebrew/bin ] && export PATH="/opt/homebrew/bin:$PATH"
 
+[ -f $HOME/bin/git-prompt.sh ] && source $HOME/bin/git-prompt.sh
+
+#function __git_ps1_cygwin_branch() {
+#  # On Cygwin, git is quite slow. That's why we parse HEAD manually.
+#  local slashes=${PWD//[^\/]/}
+#  local gitdir="$PWD"
+#  for (( n=${#slashes}; n>0; --n )); do
+#    if [ -f "$gitdir/.git/HEAD" ]; then
+#      local ref=$(<"$gitdir/.git/HEAD")
+#      echo " [${ref##*/}]"
+#      return
+#    fi
+#    gitdir="$gitdir/.."
+#  done
+#}
+
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+function __ps1_venv() {
+  if [ "$VIRTUAL_ENV" != "" ]; then
+    echo "venv "
+  fi
+}
+
+function __ps1_setup() {
+  local venv_p='\[\e[1;35m\]$(__ps1_venv)'
+  local host_p='\[\e[1;32m\]\h'
+  local path_p='\[\e[1;34m\]\w'
+  local branch_p='\[\e[1;33m\]$(__git_ps1 " [%s]")'
+  local end_p='\[\e[0m\]\$ '
+  export PS1="$venv_p$host_p $path_p$branch_p$end_p"
+}
+__ps1_setup
+
+# sets terminal title to hostname
+echo -ne "\033]0;${HOSTNAME}\007"
+
 # Makes sure this init script ends with error code 0.
 /usr/bin/true
+
