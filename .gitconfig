@@ -1,1 +1,27 @@
-dotfiles/.gitconfig
+[user]
+  name = Igor Gatis
+  email = igorgatis@gmail.com
+
+[color]
+  ui = auto  # make it pretty
+
+[diff]
+  color = auto
+
+[merge]
+  tool = vimdiff3
+
+[mergetool]
+  keepBackup = false
+
+[alias]
+  b = branch
+  co = checkout
+  dd = diff --relative --name-status
+  diff = diff --relative
+  l = log --decorate
+  p = diff --relative --name-only
+  s = status -b -s
+
+[credential]
+  helper = cache --timeout=3600
