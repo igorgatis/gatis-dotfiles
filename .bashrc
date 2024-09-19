@@ -56,6 +56,12 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
+# Make target completion.
+complete -W "\`grep -oE '^[a-zA-Z0-9_.-]+:([^=]|$)' ?akefile | sed 's/[^a-zA-Z0-9_.-]*$//'\`" make
+
+# Poe task completion.
+#poe _bash_completion
+
 [ -f $HOME/bin/git-completion.bash ] && source $HOME/bin/git-completion.bash
 # Hack to make 'git dd' complete to branch names.
 _git_dd() { _git_diff ; }
@@ -68,19 +74,34 @@ _git_p() { _git_diff ; }
 
 [ -f $HOME/bin/git-prompt.sh ] && source $HOME/bin/git-prompt.sh
 
-#function __git_ps1_cygwin_branch() {
-#  # On Cygwin, git is quite slow. That's why we parse HEAD manually.
-#  local slashes=${PWD//[^\/]/}
-#  local gitdir="$PWD"
-#  for (( n=${#slashes}; n>0; --n )); do
-#    if [ -f "$gitdir/.git/HEAD" ]; then
-#      local ref=$(<"$gitdir/.git/HEAD")
-#      echo " [${ref##*/}]"
-#      return
-#    fi
-#    gitdir="$gitdir/.."
-#  done
-#}
+# Handles pkgx: adds lazy installer or integrates if already present.
+#if ! type pkgx >/dev/null 2>&1; then
+#  pkgx() {
+#    echo "pkgx not present, installing..."
+#    unset -f pkgx
+#    eval "$(curl -fsS https://pkgx.sh)"
+#    eval "$(pkgx --shellcode)"
+#  }
+#elif command -v pkgx >/dev/null; then
+#  eval "$(pkgx --shellcode)"
+#fi
+
+# Fallback for git prompt.
+if ! type __git_ps1 >/dev/null 2>&1; then
+  __git_ps1() {
+    # On Cygwin, git is quite slow. That's why we parse HEAD manually.
+    local slashes=${PWD//[^\/]/}
+    local gitdir="$PWD"
+    for (( n=${#slashes}; n>0; --n )); do
+      if [ -f "$gitdir/.git/HEAD" ]; then
+        local ref=$(<"$gitdir/.git/HEAD")
+        echo " [${ref##*/}]"
+        return
+      fi
+      gitdir="$gitdir/.."
+    done
+	}
+fi
 
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 function __ps1_venv() {
@@ -103,5 +124,5 @@ __ps1_setup
 echo -ne "\033]0;${HOSTNAME}\007"
 
 # Makes sure this init script ends with error code 0.
-/usr/bin/true
+env true
 
