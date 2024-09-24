@@ -9,5 +9,6 @@ yadm checkout --force
 
 To make changes, I set the following origin:
 ```sh
+yadm remote remove origin
 yadm remote add origin git@github.com:igorgatis/dotfiles.git
 ```
