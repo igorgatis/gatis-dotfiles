@@ -31,9 +31,11 @@ bind '"\e[1;5D": backward-word'
 bind '"\e\e[C": forward-word'
 bind '"\e\e[D": backward-word'
 
-alias ls='ls --color=auto'
-alias grep='grep --color=auto'
 alias ..='cd ..'
+alias du='du -h'
+alias grep='grep --color=auto'
+alias ll='ls -lah --color=auto'
+alias ls='ls -h --color=auto'
 
 try-path() {
   [ -d "$1" ] && export PATH="$1:$PATH"

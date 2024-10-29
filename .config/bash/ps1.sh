@@ -28,7 +28,7 @@ function __ps1_setup() {
   local venv_p='\[\e[1;35m\]$(__ps1_venv)'
   local path_p='\[\e[1;34m\]\w'
   local branch_p='\[\e[1;33m\]$(__git_ps1 " [%s]")'
-  local end_p='\[\e[0m\] > '
+  local end_p='\[\e[0m\] $ '
   export PS1="$venv_p$path_p$branch_p$end_p"
 }
 __ps1_setup
