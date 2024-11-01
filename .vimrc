@@ -41,6 +41,8 @@ map <C-L> <C-W>l
 noremap <C-n> :bnext<CR>
 noremap <C-p> :bprev<CR>
 
+" Whitespacing
+set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 " Remove trailing spaces and tabs.
 nmap ,gc :%s/[ <Tab>]\+$//<CR>
 
