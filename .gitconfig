@@ -1,18 +1,3 @@
-[user]
-  name = Igor Gatis
-
-[color]
-  ui = auto  # make it pretty
-
-[diff]
-  color = auto
-
-[merge]
-  tool = vimdiff3
-
-[mergetool]
-  keepBackup = false
-
 [alias]
   b = branch
   co = checkout
@@ -22,5 +7,27 @@
   p = diff --relative --name-only
   s = status -b -s
 
+[color]
+  ui = auto
+
 [credential]
   helper = cache --timeout=3600
+
+[diff]
+  color = auto
+
+[fetch]
+	prune = true
+
+[merge]
+  tool = vimdiff3
+
+[mergetool]
+  keepBackup = false
+
+[push]
+	autoSetupRemote = true
+
+[user]
+  name = Igor Gatis
+  email = igorgatis@gmail.com
