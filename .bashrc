@@ -44,6 +44,7 @@ try-path() {
 try-path "/opt/homebrew/bin"
 try-path "$HOME/bin"
 try-path "$HOME/bin_local"
+try-path "$HOME/go/bin"
 
 # Last thing to allow local overrides.
 try-source "$HOME/.bashrc_local"
