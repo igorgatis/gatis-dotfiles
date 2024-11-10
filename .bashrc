@@ -30,6 +30,8 @@ bind '"\e[1;5C": forward-word'
 bind '"\e[1;5D": backward-word'
 bind '"\e\e[C": forward-word'
 bind '"\e\e[D": backward-word'
+# Case insensitve:
+bind 'set completion-ignore-case on'
 
 alias ..='cd ..'
 alias du='du -h'
@@ -43,6 +45,7 @@ try-path() {
 try-path "/opt/homebrew/bin"
 try-path "$HOME/bin"
 try-path "$HOME/bin_local"
+try-path "$HOME/go/bin"
 
 # Last thing to allow local overrides.
 try-source "$HOME/.bashrc_local"
