@@ -41,6 +41,15 @@ map <C-L> <C-W>l
 noremap <C-n> :bnext<CR>
 noremap <C-p> :bprev<CR>
 
+" Stores last edit position.
+if has("autocmd")
+  autocmd BufReadPost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \   exe "normal! g'\"" |
+        \ endif
+endif
+
+
 " Whitespacing
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 " Remove trailing spaces and tabs.
