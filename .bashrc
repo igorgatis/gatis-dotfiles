@@ -22,7 +22,6 @@ HISTCONTROL=ignoreboth
 HISTFILESIZE=2000
 PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
 
-bind 'set completion-ignore-case on'
 # Make bash autocomplete with up arrow.
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
