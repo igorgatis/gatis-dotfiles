@@ -14,3 +14,5 @@ source "$HOME/.config/bash/git-completion.bash"
 _git_dd() { _git_diff ; }
 _git_p() { _git_diff ; }
 
+source "$HOME/.config/bash/kubectl-completion.sh"
+
