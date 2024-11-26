@@ -16,3 +16,9 @@ _git_p() { _git_diff ; }
 
 source "$HOME/.config/bash/kubectl-completion.sh"
 
+alias k=kubectl
+complete -o default -F __start_kubectl k
+
+# Namespace related:
+alias kx='f() { [ "$1" ] && kubectl config use-context $1 || kubectl config current-context ; } ; f'
+alias kn='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 || kubectl config view --minify | grep namespace | cut -d" " -f6 ; } ; f'
