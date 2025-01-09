@@ -13,8 +13,6 @@ try-source() {
   [ -r "$1" ] && source "$1"
 }
 try-source /etc/bashrc
-try-source "$HOME/.config/bash/completion.sh"
-try-source "$HOME/.config/bash/ps1.sh"
 
 # Bash unified history control (ref: )
 shopt -s histappend
@@ -46,6 +44,10 @@ try-path "/opt/homebrew/bin"
 try-path "$HOME/bin"
 try-path "$HOME/bin_local"
 try-path "$HOME/go/bin"
+
+# Now that PATH is set, we can source completion and ps1.
+try-source "$HOME/.config/bash/completion.sh"
+try-source "$HOME/.config/bash/ps1.sh"
 
 # Last thing to allow local overrides.
 try-source "$HOME/.bashrc_local"
