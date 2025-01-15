@@ -24,10 +24,13 @@ PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
 # Allow jumping words.
-bind '"\e[1;5C": forward-word'
-bind '"\e[1;5D": backward-word'
-bind '"\e\e[C": forward-word'
-bind '"\e\e[D": backward-word'
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  bind '"\e[1;5C": forward-word'
+  bind '"\e[1;5D": backward-word'
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  bind '"\e[1;3D": backward-word'
+  bind '"\e[1;3C": forward-word'
+fi
 # Case insensitve:
 bind 'set completion-ignore-case on'
 
