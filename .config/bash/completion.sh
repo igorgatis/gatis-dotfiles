@@ -15,7 +15,8 @@ _git_dd() { _git_diff ; }
 _git_p() { _git_diff ; }
 
 if command -v kubectl &> /dev/null; then
-    source "$HOME/.config/bash/kubectl-completion.sh"
+    # kubectl completion is broken.
+    # source "$HOME/.config/bash/kubectl-completion.sh"
 
     alias k=kubectl
     complete -o default -F __start_kubectl k

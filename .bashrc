@@ -34,6 +34,7 @@ fi
 # Case insensitve:
 bind 'set completion-ignore-case on'
 
+# Core aliases:
 alias ..='cd ..'
 alias du='du -h'
 alias grep='grep --color=auto'
@@ -51,6 +52,9 @@ try-path "$HOME/go/bin"
 # Now that PATH is set, we can source completion and ps1.
 try-source "$HOME/.config/bash/completion.sh"
 try-source "$HOME/.config/bash/ps1.sh"
+
+# Third party:
+try-source "$HOME/.config/bash/llm.sh"
 
 # Last thing to allow local overrides.
 try-source "$HOME/.bashrc_local"
